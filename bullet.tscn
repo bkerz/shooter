@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://dml8bfji14h1f"]
+
+[ext_resource type="Texture2D" uid="uid://dommtcyu7gs84" path="res://icon.svg" id="1_8ydtb"]
+[ext_resource type="Script" path="res://bullet.gd" id="1_xam84"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_t2lli"]
+radius = 3.0
+height = 16.0
+
+[node name="Bullet" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_xam84")
+speed = 5500
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_t2lli")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.046875, 0.109375)
+texture = ExtResource("1_8ydtb")
+
+[node name="RemoveTimer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(0, -4.76837e-07)
+scale = Vector2(0.3, 0.8)
+
+[connection signal="timeout" from="RemoveTimer" to="." method="_on_timer_timeout"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

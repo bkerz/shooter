@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://dyyrykp8pem03"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_vbgsp"]
+[ext_resource type="PackedScene" uid="uid://cyst88l52fdva" path="res://player.tscn" id="2_tot6n"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5liwx"]
+size = Vector2(1942.5, 117)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ca3wq"]
+size = Vector2(934, 116.146)
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_vbgsp")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(976, 1020)
+shape = SubResource("RectangleShape2D_5liwx")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+position = Vector2(1494, 831)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(367, 67)
+shape = SubResource("RectangleShape2D_ca3wq")
+
+[node name="Player" parent="." instance=ExtResource("2_tot6n")]
+
+[node name="ShootTimer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[connection signal="shoot" from="Player" to="." method="_on_player_shoot"]
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

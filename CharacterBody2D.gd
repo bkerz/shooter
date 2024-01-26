@@ -1,5 +1,9 @@
 extends CharacterBody2D
 
+signal shoot
+
+@export var bullet: PackedScene
+
 
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
@@ -7,6 +11,12 @@ const JUMP_VELOCITY = -400.0
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
+func _process(delta: float):
+	var horizontal = Input.get_axis("ui_left", "ui_right")
+	var vertical = Input.get_axis("ui_up", "ui_down")
+	if Input.is_action_just_pressed("shoot"):
+		shoot.emit(Vector2(horizontal, vertical))
+	pass
 
 func _physics_process(delta):
 	# Add the gravity.
@@ -26,3 +36,5 @@ func _physics_process(delta):
 		velocity.x = 0
 
 	move_and_slide()
+	pass
+
