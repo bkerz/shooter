@@ -26,6 +26,7 @@ position = Vector2(367, 67)
 shape = SubResource("RectangleShape2D_ca3wq")
 
 [node name="Player" parent="." instance=ExtResource("2_tot6n")]
+position = Vector2(499, 638)
 
 [node name="ShootTimer" type="Timer" parent="."]
 wait_time = 0.5

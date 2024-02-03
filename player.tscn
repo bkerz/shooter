@@ -5,18 +5,18 @@
 [ext_resource type="PackedScene" uid="uid://dml8bfji14h1f" path="res://bullet.tscn" id="2_j5vic"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_my0uq"]
-size = Vector2(65, 176)
+size = Vector2(65, 161.333)
 
 [node name="Player" type="CharacterBody2D"]
+scale = Vector2(0.75, 0.75)
 script = ExtResource("1_ntkc8")
 bullet = ExtResource("2_j5vic")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 5.00006)
+position = Vector2(0, -2)
 scale = Vector2(2, -0.818182)
 shape = SubResource("RectangleShape2D_my0uq")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(1, 4)
-scale = Vector2(1, 0.992188)
+position = Vector2(1, -1.5)
 texture = ExtResource("2_c2ivv")
