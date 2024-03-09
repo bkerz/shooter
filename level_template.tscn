@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dvnp3ge0ei35e"]
+
+[node name="LevelTemplate" type="Node2D"]
+position = Vector2(407.733, 129.875)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]

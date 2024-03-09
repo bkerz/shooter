@@ -2,10 +2,12 @@ extends CharacterBody2D
 
 @export var speed: int = 500
 var _direction: Vector2 = Vector2.RIGHT
+var test: float = 0.1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	velocity = Vector2(_direction.x * speed, _direction.y * speed)
+	var hello = Vector2()
 	pass # Replace with function body.
 
 

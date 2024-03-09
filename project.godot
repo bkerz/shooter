@@ -20,6 +20,11 @@ config/icon="res://icon.svg"
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
+window/size/mode=2
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/2d-prototype-kit/2d_prototype_kit/plugin.cfg", "res://addons/SimpleTODO/plugin.cfg")
 
 [input]
 

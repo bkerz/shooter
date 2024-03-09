@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cwot7cb8kai5t"]
+
+[ext_resource type="Script" path="res://door.gd" id="1_nyj8e"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i1dqg"]
+radius = 1.0
+height = 108.0
+
+[node name="Door" type="Area2D"]
+script = ExtResource("1_nyj8e")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_i1dqg")
+debug_color = Color(0, 0, 0, 0.42)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

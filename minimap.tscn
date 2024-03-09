@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://duk8c2fcnb3a8"]
+
+[ext_resource type="Texture2D" uid="uid://0r4vl037fony" path="res://minimap/minimap-bg.png" id="1_4l1jl"]
+
+[node name="NinePatchRect" type="NinePatchRect"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+texture = ExtResource("1_4l1jl")

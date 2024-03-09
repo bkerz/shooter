@@ -1,29 +1,55 @@
-[gd_scene load_steps=5 format=3 uid="uid://dyyrykp8pem03"]
+[gd_scene load_steps=8 format=3 uid="uid://dyyrykp8pem03"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_vbgsp"]
 [ext_resource type="PackedScene" uid="uid://cyst88l52fdva" path="res://player.tscn" id="2_tot6n"]
+[ext_resource type="Script" path="res://levels/managers/shooter_manager.gd" id="3_re3p0"]
+[ext_resource type="PackedScene" uid="uid://8sy2386austd" path="res://level.tscn" id="4_wvy1n"]
+[ext_resource type="Texture2D" uid="uid://5jcefqowvkhh" path="res://minimap/minimap_tileset.png" id="6_mdy37"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5liwx"]
-size = Vector2(1942.5, 117)
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7ow3i"]
+texture = ExtResource("6_mdy37")
+0:0/0 = 0
+0:0/0/terrain_set = 0
+0:0/0/terrain = 0
+1:0/0 = 0
+1:0/0/terrain_set = 0
+1:0/0/terrain = 0
+2:0/0 = 0
+2:0/0/terrain_set = 0
+2:0/0/terrain = 0
+0:1/0 = 0
+0:1/0/terrain_set = 0
+0:1/0/terrain = 0
+1:1/0 = 0
+1:1/0/terrain_set = 0
+1:1/0/terrain = 0
+2:1/0 = 0
+2:1/0/terrain_set = 0
+2:1/0/terrain = 0
+0:2/0 = 0
+0:2/0/terrain_set = 0
+0:2/0/terrain = 0
+1:2/0 = 0
+1:2/0/terrain_set = 0
+1:2/0/terrain = 0
+2:2/0 = 0
+2:2/0/terrain_set = 0
+2:2/0/terrain = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+5:1/0 = 0
+4:1/0 = 0
+3:1/0 = 0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ca3wq"]
-size = Vector2(934, 116.146)
+[sub_resource type="TileSet" id="TileSet_qst53"]
+terrain_set_0/mode = 0
+terrain_set_0/terrain_0/name = "Terrain 0"
+terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
+sources/0 = SubResource("TileSetAtlasSource_7ow3i")
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_vbgsp")
-
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(976, 1020)
-shape = SubResource("RectangleShape2D_5liwx")
-
-[node name="StaticBody2D2" type="StaticBody2D" parent="."]
-position = Vector2(1494, 831)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
-position = Vector2(367, 67)
-shape = SubResource("RectangleShape2D_ca3wq")
 
 [node name="Player" parent="." instance=ExtResource("2_tot6n")]
 position = Vector2(499, 638)
@@ -32,5 +58,18 @@ position = Vector2(499, 638)
 wait_time = 0.5
 autostart = true
 
+[node name="ShooterManager" type="Node" parent="." node_paths=PackedStringArray("player_scene")]
+script = ExtResource("3_re3p0")
+player_scene = NodePath("../Player")
+
+[node name="Level" parent="." instance=ExtResource("4_wvy1n")]
+
+[node name="TileMap" type="TileMap" parent="."]
+position = Vector2(1598, 58)
+scale = Vector2(3, 3)
+tile_set = SubResource("TileSet_qst53")
+format = 2
+
 [connection signal="shoot" from="Player" to="." method="_on_player_shoot"]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
+[connection signal="exit_level" from="Level" to="." method="_on_level_exit_level"]
