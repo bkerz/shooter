@@ -34,8 +34,11 @@ func create_map(size: Vector2) -> Array[Dictionary]:
 			pass
 
 		x_axis += 1
+	print("This is the rooms array: ")
+	print(grid)
 
 	var initial_room: Array = _select_initial_room(grid)
+
 	# var top = _select_top(grid, initial_room[0])
 	# var bottom = _select_bottom(grid, initial_room[0])
 	# print("testing if setting the doors is working")
@@ -66,9 +69,11 @@ func _create_conections(grid: Array[Dictionary], starting_point: int) -> Array[D
 
 	for i in range(iterations):
 		var current_doors:int = _count_doors(current_room)
+		var available_directions: int = _get_directions_available(current_room, grid)
 		var total_doors: int = 0
 		if current_doors == 0:
-			total_doors = randi_range(1, 4)
+			print("current room has 0 doors set")
+			total_doors = randi_range(1, available_directions)
 			print("total_doors: ", total_doors)
 			print("")
 			var new_doors: Dictionary = _get_random_doors(current_room, total_doors)
@@ -79,7 +84,8 @@ func _create_conections(grid: Array[Dictionary], starting_point: int) -> Array[D
 			print("current_room: ", current_room)
 			print("")
 		else:
-			total_doors = randi_range(current_doors, 4)
+			print("current room has some doors set")
+			total_doors = randi_range(current_doors, available_directions)
 			print("total_doors: ", total_doors)
 			print("")
 			var new_doors: Dictionary = _get_random_doors(current_room, total_doors)
@@ -91,7 +97,6 @@ func _create_conections(grid: Array[Dictionary], starting_point: int) -> Array[D
 				if not values[doors_index]:
 					var door_position: String = keys[doors_index]
 					current_room["doors"][door_position] = new_doors[door_position]
-			
 			print("new_doors: ", new_doors)
 			print("current_room: ", current_room)
 			print("")
@@ -113,6 +118,8 @@ func _create_conections(grid: Array[Dictionary], starting_point: int) -> Array[D
 			print("next: ", next)
 			print("")
 			current_room = next[1]
+			if current_room == null:
+				continue
 			print("current_room: ", current_room)
 			print("")
 			index = next[0]
@@ -121,13 +128,35 @@ func _create_conections(grid: Array[Dictionary], starting_point: int) -> Array[D
 		
 	return new_grid
 
+func _get_directions_available(current_room: Dictionary, rooms: Array[Dictionary]) -> int:
+	var position: Vector2 = current_room["map_position"]
+	# var starting_point: int = rooms.find(func (item): return item["map_position"].x == position.x and item["map_position"].y == position.y)
+	var starting_point: int = position.x * position.y
+	var bottom_room = _select_bottom(rooms, starting_point)
+	var top_room = _select_top(rooms, starting_point)
+	var left_room = _select_left(rooms, starting_point)
+	var right_room = _select_right(rooms, starting_point)
+	var count: int = 0
+	var list: Array[Array] = [top_room, left_room, bottom_room, right_room]
+	for room in list:
+		if room[1] != null:
+			count += 1
+	return count
+	
+
 func _select_next_room(grid: Array[Dictionary], starting_point: int) -> Array:
 	var previous: Dictionary = grid[starting_point]
 	var top: Array = _select_top(grid, starting_point)
 	var bottom: Array = _select_bottom(grid, starting_point)
 	var right: Array = _select_right(grid, starting_point)
 	var left: Array = _select_left(grid, starting_point)
-	if top[1]["checked"] and bottom[1]["checked"] and right[1]["checked"] and left[1]["checked"]:
+	var adjacent_rooms: Array = [top, left, bottom, right, right]
+
+	if adjacent_rooms.all(func (room): return room[1] == null and room[0] < 0):
+		return [-1, null]
+	var are_all_checked: bool = adjacent_rooms.all(func (room): return room[1] != null and room[1]["checked"])
+	if are_all_checked:
+		#select a new item that hasn't been checked before
 		var found: Dictionary = {}
 		var index: int = 0
 		for item in grid:
@@ -136,15 +165,9 @@ func _select_next_room(grid: Array[Dictionary], starting_point: int) -> Array:
 			found = item
 			index += 1
 		return [index, found]
-	var adjacent_room: Array[Array] = [
-		top,
-		bottom,
-		right,
-		left
-	]
-	var next: Array = adjacent_room.pick_random()
+	var next: Array = adjacent_rooms.filter(func (item): return item[1] != null).pick_random()
 	while next[1]["checked"] == true:
-		next = adjacent_room.pick_random()
+		next = adjacent_rooms.pick_random()
 	return next
 	
 
@@ -157,20 +180,28 @@ func _match_adjacent_room_doors(grid: Array[Dictionary], room_index: int, doors:
 		var key: String = keys[index]
 		if value:
 			if key == "top":
-				var top: Dictionary = _select_top(grid, room_index)[1]
-				top["doors"]["bottom"] = true
+				var item = _select_top(grid, room_index)[1]
+				if item != null:
+					var top: Dictionary = item
+					top["doors"]["bottom"] = true
 
 			if key == "bottom":
-				var bottom: Dictionary = _select_bottom(grid, room_index)[1]
-				bottom["doors"]["top"] = true
+				var item = _select_top(grid, room_index)[1]
+				if item != null:
+					var bottom: Dictionary = item
+					bottom["doors"]["top"] = true
 
 			if key == "right":
-				var right: Dictionary = _select_right(grid, room_index)[1]
-				right["doors"]["right"] = true
+				var item = _select_top(grid, room_index)[1]
+				if item != null:
+					var right: Dictionary = item
+					right["doors"]["right"] = true
 
 			if key == "left":
-				var left: Dictionary = _select_left(grid, room_index)[1]
-				left["doors"]["left"] = true
+				var item = _select_top(grid, room_index)[1]
+				if item != null:
+					var left: Dictionary = item
+					left["doors"]["left"] = true
 
 func _count_doors(room: Dictionary) -> int:
 	var values: Array = room["doors"].values()
@@ -206,7 +237,7 @@ func _select_bottom(grid: Array[Dictionary], starting_point: int) -> Array:
 	var multiplier: int = int(pos.x) + 1
 	var index = multiplier + starting_point 
 	if index < 0 or index > grid.size() -1:
-		index = starting_point
+		return [-1, null]
 	return [index, grid[index]]
 
 func _select_top(grid: Array[Dictionary], starting_point: int) -> Array:
@@ -215,19 +246,19 @@ func _select_top(grid: Array[Dictionary], starting_point: int) -> Array:
 	var multiplier: int = int(pos.x) + 1
 	var index = starting_point - multiplier
 	if index < 0 or index > grid.size() - 1:
-		index = starting_point
+		return [-1, null]
 	return [index, grid[index]]
 
 func _select_right(grid: Array[Dictionary], starting_point: int) -> Array:
 	var index = starting_point + 1
 	if index < 0 or index > grid.size() - 1:
-		index = starting_point
+		return [-1, null]
 	return [index, grid[index]]
 
 func _select_left(grid: Array[Dictionary], starting_point: int) -> Array:
 	var index = starting_point - 1
 	if index < 0 or index > grid.size() - 1:
-		index = starting_point
+		return [-1, null]
 	return [index, grid[index]]
 
 func _select_initial_room(grid: Array[Dictionary]) -> Array:

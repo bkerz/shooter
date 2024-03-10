@@ -1,46 +1,42 @@
-[gd_scene load_steps=5 format=3 uid="uid://8sy2386austd"]
+[gd_scene load_steps=4 format=3 uid="uid://8sy2386austd"]
 
 [ext_resource type="Script" path="res://level.gd" id="1_1eic6"]
-[ext_resource type="Script" path="res://addons/2d-prototype-kit/2d_prototype_kit/platform.gd" id="1_2amab"]
-[ext_resource type="Script" path="res://addons/2d-prototype-kit/2d_prototype_kit/obstacle.gd" id="3_d4kxy"]
 [ext_resource type="PackedScene" uid="uid://cwot7cb8kai5t" path="res://door.tscn" id="3_uhx8u"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7vaij"]
+size = Vector2(1920, 63)
 
 [node name="Level" type="Node2D" groups=["level"]]
 script = ExtResource("1_1eic6")
 
-[node name="Platform" type="StaticBody2D" parent="."]
-position = Vector2(950, 27)
-script = ExtResource("1_2amab")
-size = Vector2(2000, 50)
-
-[node name="Platform3" type="StaticBody2D" parent="."]
-position = Vector2(3, 536)
-script = ExtResource("1_2amab")
-direction = 1
-size = Vector2(1080, 50)
-
-[node name="Platform4" type="StaticBody2D" parent="."]
-position = Vector2(1899, 319)
-script = ExtResource("1_2amab")
-direction = 1
-size = Vector2(800, 50)
-
-[node name="Platform2" type="StaticBody2D" parent="."]
-position = Vector2(1044, 954)
-script = ExtResource("1_2amab")
-size = Vector2(3080, 250)
-
-[node name="Obstacle" type="StaticBody2D" parent="."]
-position = Vector2(317, 729)
-scale = Vector2(1, 2)
-script = ExtResource("3_d4kxy")
-
-[node name="Obstacle2" type="StaticBody2D" parent="."]
-position = Vector2(1693, 729)
-scale = Vector2(1, 2)
-script = ExtResource("3_d4kxy")
-
 [node name="Door" parent="." instance=ExtResource("3_uhx8u")]
-position = Vector2(1869, 778)
+position = Vector2(1869, 953)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(950, 21.5)
+shape = SubResource("RectangleShape2D_7vaij")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(955, 1040)
+shape = SubResource("RectangleShape2D_7vaij")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
+position = Vector2(1906, 477)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_7vaij")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="."]
+position = Vector2(-1939, -140)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
+position = Vector2(1906, 477)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_7vaij")
 
 [connection signal="leave" from="Door" to="." method="_on_door_leave"]

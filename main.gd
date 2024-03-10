@@ -5,7 +5,7 @@ var _level_manager: LevelManager = LevelManager.new()
 
 func _ready() -> void:
 	var minimap: TileMap = get_node("TileMap")
-	var grid: Array[Dictionary] = _level_manager.create_map(Vector2(3, 3))
+	var grid: Array[Dictionary] = _level_manager.create_map(Vector2(2, 2))
 	for room in grid:
 		var map_position: Vector2 = room["map_position"]
 		var doors: Vector2i = get_doors_from_tileset(room["doors"])

@@ -24,7 +24,7 @@ window/size/mode=2
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/2d-prototype-kit/2d_prototype_kit/plugin.cfg", "res://addons/SimpleTODO/plugin.cfg")
+enabled=PackedStringArray()
 
 [input]
 
