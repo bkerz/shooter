@@ -7,11 +7,8 @@ func _create_new_level() -> Node:
 	return level
 
 func switch_level(parent: Node2D, current_level: Node2D, callback: Callable) -> void:
-	var hello: String = ""
-	current_level.queue_free()
-	var new_level = _create_new_level()
-	parent.add_child(new_level)
-	callback.call(new_level)
+	parent.add_child(current_level)
+	callback.call(current_level)
 
 ##create a list of dictionaries representing each room, not visited and no door opened
 func _create_map_grid(size: Vector2) -> Array[Dictionary]:

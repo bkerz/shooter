@@ -1,17 +1,73 @@
 extends Node2D
 
 @onready var _shooter_manager: ShooterManager = get_node("ShooterManager")
+var _level_scene = preload("res://level.tscn")
 var _level_manager: LevelManager = LevelManager.new()
+var _map_grid: Array[Dictionary] = []
+var _map_index: int = -1
+var _level = null
 
 func _ready() -> void:
 	var minimap: TileMap = get_node("TileMap")
-	var grid: Array[Dictionary] = _level_manager.create_map(Vector2(3, 3))
-	for room in grid:
+	var map_size: Vector2 = Vector2(3, 3) 
+	_map_grid = _level_manager.create_map(map_size)
+	for room in _map_grid:
+		if room["is_initial"]:
+			var room_position: Vector2 = room["map_position"]
+			_map_index = (map_size.x * room_position.y) + room_position.x
 		var map_position: Vector2 = room["map_position"]
 		var doors: Vector2i = get_doors_from_tileset(room["doors"])
 		minimap.set_cell(0, map_position, 0, doors)
+	_create_initial_level(_map_index)
 	#var tile_set: TileSet = minimap.tile_set
 	#var source: TileSetSource = tile_set.get_source(0)
+
+func _create_level_from_dict(room: Dictionary):
+	var level = _level_scene.instantiate()
+	level.doors = room["doors"].duplicate(true)
+	return level
+
+func _create_initial_level(map_index: int):
+	_level = _create_level_from_dict(_map_grid[map_index])
+	add_child(_level)
+	_connect_exit_level_signal(_level)
+	
+func _connect_exit_level_signal(level):
+	level.exit_level.connect(
+		func (direction: Vector2):
+			match direction:
+				Vector2.UP:
+					var top = _level_manager._select_top(_map_grid, _map_index)
+					var top_level = _create_level_from_dict(top[1])
+					_map_index = top[0]
+					_level.queue_free()
+					_level = top_level
+					_switch_level(top_level)
+					
+				Vector2.RIGHT:
+					var right = _level_manager._select_right(_map_grid, _map_index)
+					var right_level = _create_level_from_dict(right[1])
+					_map_index = right[0]
+					_level.queue_free()
+					_level = right_level
+					_switch_level(right_level)
+				Vector2.LEFT:
+					var left = _level_manager._select_left(_map_grid, _map_index)
+					var left_level = _create_level_from_dict(left[1])
+					_map_index = left[0]
+					_level.queue_free()
+					_level = left_level
+					_switch_level(left_level)
+				Vector2.DOWN:
+					var bottom = _level_manager._select_bottom(_map_grid, _map_index)
+					var bottom_level = _create_level_from_dict(bottom[1])
+					_map_index = bottom[0]
+					_level.queue_free()
+					_level = bottom_level
+					_switch_level(bottom_level)
+				
+	)
+
 	
 func get_doors_from_tileset(room: Dictionary) -> Vector2i:
 	if room["right"] and room["bottom"] and not room["left"] and not room["top"]:
@@ -78,19 +134,13 @@ func _on_shoot_timer_timeout():
 
 
 
-func _on_level_exit_level():
-	var current_level = _find_current_level_or_null()
-	if current_level != null:
-		_switch_level(current_level)
-	
-
 func _switch_level(current_level: Node2D):
 	var me = self
 	var player = get_node("Player")
 	_level_manager.call_deferred("switch_level", self, current_level, func (new_level:Node2D):
 		player.position = Vector2(100,100)
 		await get_tree().create_timer(0.25).timeout
-		new_level.exit_level.connect(me._on_level_exit_level)
+		me._connect_exit_level_signal(new_level)
 	)
 
 func _find_current_level_or_null() -> Node2D:
