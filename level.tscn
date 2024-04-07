@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://8sy2386austd"]
+[gd_scene load_steps=5 format=3 uid="uid://8sy2386austd"]
 
 [ext_resource type="Script" path="res://level.gd" id="1_1eic6"]
 [ext_resource type="PackedScene" uid="uid://cwot7cb8kai5t" path="res://door.tscn" id="3_uhx8u"]
@@ -6,11 +6,11 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7vaij"]
 size = Vector2(1920, 63)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ww0a8"]
+size = Vector2(345, 20)
+
 [node name="Level" type="Node2D" groups=["level"]]
 script = ExtResource("1_1eic6")
-
-[node name="Door" parent="." instance=ExtResource("3_uhx8u")]
-position = Vector2(1869, 953)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
@@ -39,4 +39,57 @@ position = Vector2(1906, 477)
 rotation = 1.5708
 shape = SubResource("RectangleShape2D_7vaij")
 
-[connection signal="leave" from="Door" to="." method="_on_door_leave"]
+[node name="DoorRight" parent="." instance=ExtResource("3_uhx8u")]
+position = Vector2(1869, 953)
+
+[node name="DoorLeft" parent="." instance=ExtResource("3_uhx8u")]
+position = Vector2(4, 953)
+
+[node name="DoorTop" parent="." instance=ExtResource("3_uhx8u")]
+position = Vector2(959, 62)
+rotation = 1.5708
+
+[node name="DoorBottom" parent="." instance=ExtResource("3_uhx8u")]
+position = Vector2(960, 1004)
+rotation = 1.5708
+
+[node name="StaticBody2D5" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D5"]
+position = Vector2(985, 868)
+shape = SubResource("RectangleShape2D_ww0a8")
+
+[node name="StaticBody2D6" type="StaticBody2D" parent="."]
+position = Vector2(278, -139)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D6"]
+position = Vector2(985, 868)
+shape = SubResource("RectangleShape2D_ww0a8")
+
+[node name="StaticBody2D7" type="StaticBody2D" parent="."]
+position = Vector2(-229, -191)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D7"]
+position = Vector2(985, 868)
+shape = SubResource("RectangleShape2D_ww0a8")
+
+[node name="StaticBody2D8" type="StaticBody2D" parent="."]
+position = Vector2(262, -368)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D8"]
+position = Vector2(985, 868)
+shape = SubResource("RectangleShape2D_ww0a8")
+
+[node name="StaticBody2D9" type="StaticBody2D" parent="."]
+position = Vector2(-240, -458)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D9"]
+position = Vector2(985, 868)
+shape = SubResource("RectangleShape2D_ww0a8")
+
+[node name="StaticBody2D10" type="StaticBody2D" parent="."]
+position = Vector2(251, -635)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D10"]
+position = Vector2(985, 868)
+shape = SubResource("RectangleShape2D_ww0a8")
