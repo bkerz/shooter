@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://8sy2386austd"]
+[gd_scene load_steps=6 format=3 uid="uid://8sy2386austd"]
 
 [ext_resource type="Script" path="res://level.gd" id="1_1eic6"]
 [ext_resource type="PackedScene" uid="uid://cwot7cb8kai5t" path="res://door.tscn" id="3_uhx8u"]
+[ext_resource type="PackedScene" uid="uid://gq1cd6ofor2j" path="res://entities/enemies/walker.tscn" id="3_yy802"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7vaij"]
 size = Vector2(1920, 63)
@@ -93,3 +94,6 @@ position = Vector2(251, -635)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D10"]
 position = Vector2(985, 868)
 shape = SubResource("RectangleShape2D_ww0a8")
+
+[node name="CharacterBody2D" parent="." groups=["enemy"] instance=ExtResource("3_yy802")]
+position = Vector2(1523, 924)
