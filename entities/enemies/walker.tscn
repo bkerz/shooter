@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://entities/enemies/walker.gd" id="1_u754f"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_75c05"]
-size = Vector2(77, 75)
+size = Vector2(133, 128)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_u6c8m"]
 shader = ExtResource("1_60x5y")
@@ -14,7 +14,7 @@ shader = ExtResource("1_60x5y")
 script = ExtResource("1_u754f")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(28.5, 27.5)
+position = Vector2(0.5, 1)
 shape = SubResource("RectangleShape2D_75c05")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
