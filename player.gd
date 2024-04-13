@@ -7,6 +7,12 @@ signal shoot
 
 const SPEED = 300.0
 const JUMP_VELOCITY = -1200.0
+const MAX_HITS = 3
+
+var _death_menu_scene = preload("res://ui/death_menu/death_menu.tscn")
+var _hits_received: int = 0
+var _is_dead: bool = true
+
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -37,4 +43,16 @@ func _physics_process(delta):
 
 	move_and_slide()
 	pass
+
+
+
+func _on_area_2d_body_entered(body:Node2D):
+	if body.get_groups().has("enemy"):
+		_hits_received += 1
+
+		if _hits_received > MAX_HITS:
+			var death_menu: Control = _death_menu_scene.instantiate()
+			get_parent().get_node("CanvasLayer/Control/CenterContainer").add_child(death_menu)
+	
+	pass # Replace with function body.
 

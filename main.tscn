@@ -67,5 +67,24 @@ scale = Vector2(3, 3)
 tile_set = SubResource("TileSet_qst53")
 format = 2
 
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [connection signal="shoot" from="Player" to="." method="_on_player_shoot"]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
