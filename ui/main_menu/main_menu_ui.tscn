@@ -1,15 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://biq34m1j7sp45"]
+[gd_scene load_steps=3 format=3 uid="uid://biq34m1j7sp45"]
+
+[ext_resource type="Script" path="res://ui/main_menu/main_menu.gd" id="1_4of4i"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_hqwew"]
 font_size = 48
 
-[node name="Control" type="Control"]
+[node name="MainMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_4of4i")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -37,12 +40,15 @@ layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 16
 
-[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Start Game" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
 text = "Start Game"
 
-[node name="Button2" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Quit Game" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
 text = "Quit Game"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/Start Game" to="." method="_on_start_game_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/Quit Game" to="." method="_on_quit_game_pressed"]

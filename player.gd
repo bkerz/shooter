@@ -9,7 +9,7 @@ const SPEED = 300.0
 const JUMP_VELOCITY = -1200.0
 const MAX_HITS = 3
 
-var _death_menu_scene = preload("res://ui/death_menu/death_menu.tscn")
+var _death_menu_scene = preload("res://ui/death_menu/death_menu_ui.tscn")
 var _hits_received: int = 0
 var _is_dead: bool = true
 
