@@ -5,7 +5,6 @@ var _main_scene = null
 func _ready():
 	_main_scene = get_tree().get_root()
 	print(_main_scene)
-	breakpoint
 	
 
 func _on_start_game_pressed():

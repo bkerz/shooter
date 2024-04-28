@@ -40,21 +40,8 @@ func create_map(size: Vector2) -> Array[Dictionary]:
 	var grid = _create_map_grid(size)
 	var initial_room: Array = _select_initial_room(grid)
 
-	# var top = _select_top(grid, initial_room[0])
-	# var bottom = _select_bottom(grid, initial_room[0])
-	# print("testing if setting the doors is working")
-	# print(initial_room)
-	# var total_doors = randi_range(1, 4)
-	# print("initial_room with doors: ", _get_random_doors(initial_room[1], total_doors))
-	# initial_room[1]["doors"] = _get_random_doors(initial_room[1], total_doors)
-	# _match_adjacent_room_doors(grid, initial_room[0], initial_room[1]["doors"].duplicate())
-	# print("adjacent_top: ", _select_top(grid, initial_room[0]))
-	# print("adjacent_bottom: ", _select_bottom(grid, initial_room[0]))
-	# print("adjacent_right: ", _select_right(grid, initial_room[0]))
-	# print("adjacent_left: ", _select_left(grid, initial_room[0]))
-
 	var grid_with_doors = _create_conections(grid, initial_room[0])
-	print("this is the grid with doors")
+	
 	for item in grid:
 		print(item)
 
@@ -75,60 +62,32 @@ func _create_conections(grid: Array[Dictionary], starting_point: int) -> Array[D
 		var current_doors: int = _count_doors(current_room["doors"])
 		var max_doors_number: int = 0
 		if current_doors == 0:
-			print("current room has 0 doors set")
 			#now we set the maximun number of doors we will set
 			max_doors_number = randi_range(1, available_directions["count"])
-			print("max_doors_number: ", max_doors_number)
-			print("")
 			var new_doors: Dictionary = _get_random_doors(current_room, max_doors_number, available_directions["directions"])
-			print("new_doors: ", new_doors)
-			print("")
 			current_room["doors"] = new_doors
-			print("new_doors: ", new_doors)
-			print("current_room: ", current_room)
-			print("")
 		else:
-			print("current room has some doors set")
 			max_doors_number = randi_range(current_doors, available_directions["count"])
-			print("max_doors_number: ", max_doors_number)
-			print("")
 			var new_doors: Dictionary = _get_random_doors(current_room, max_doors_number, available_directions["directions"])
-			print("new_doors: ", new_doors)
-			print("")
 			var keys: Array = current_room["doors"].keys()
 			var values: Array = current_room["doors"].values()
 			for doors_index in range(keys.size() - 1):
 				if not values[doors_index]:
 					var door_position: String = keys[doors_index]
 					current_room["doors"][door_position] = new_doors[door_position]
-			print("new_doors: ", new_doors)
-			print("current_room: ", current_room)
-			print("")
-			
+
 		_match_adjacent_room_doors(grid, index, current_room["doors"])
-		print("current_room: ", current_room)
-		print("")
 		current_room["checked"] = true
-		print("current_room: ", current_room)
-		print("")
 		new_grid.append(current_room)
-		print("new_grid: ", new_grid)
-		print("")
 		if i + 1 == iterations:
 			continue
 		else:
-			print("interation numbber: ", i)
 			var next: Array = _select_next_room(grid, index)
-			print("next: ", next)
-			print("")
 			if next[1] == null:
 				continue
 			current_room = next[1]
-			print("current_room: ", current_room)
-			print("")
 			index = next[0]
-			print("index: ", index)
-			print("---------------")
+			
 
 	new_grid.sort_custom(func (a, b):
 			var a_position:Vector2 = a["map_position"]

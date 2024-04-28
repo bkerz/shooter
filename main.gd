@@ -31,6 +31,9 @@ func _create_initial_level(map_index: int):
 	_level = _create_level_from_dict(_map_grid[map_index])
 	add_child(_level)
 	_connect_exit_level_signal(_level)
+
+
+
 	
 func _connect_exit_level_signal(level):
 	level.exit_level.connect(
@@ -65,6 +68,9 @@ func _connect_exit_level_signal(level):
 					_level.queue_free()
 					_level = bottom_level
 					_switch_level(bottom_level)
+				
+			print("this is _map_grid after selecting a new room")
+			print(_map_grid)
 				
 	)
 
