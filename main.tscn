@@ -86,5 +86,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[connection signal="level_cleared" from="." to="." method="_on_level_cleared"]
+[connection signal="death" from="Player" to="." method="_on_player_death"]
 [connection signal="shoot" from="Player" to="." method="_on_player_shoot"]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

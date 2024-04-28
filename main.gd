@@ -1,5 +1,7 @@
 extends Node2D
 
+signal level_cleared
+
 @onready var _shooter_manager: ShooterManager = get_node("ShooterManager")
 var _death_menu_scene = preload("res://ui/death_menu/death_menu_ui.tscn")
 var _finish_menu_scene = preload("res://ui/finish_menu/finish_menu_ui.tscn")
@@ -36,11 +38,20 @@ func _create_initial_level(map_index: int):
 
 
 
+func _visit_current_room():
+	_map_grid[_map_index]["visited"] = true
+	var are_all_rooms_visited: bool = _map_grid.all(
+		func (room):
+			return room["visited"]
+	)
+	if are_all_rooms_visited:
+		emit_signal("level_cleared")
+	
 	
 func _connect_exit_level_signal(level):
 	level.exit_level.connect(
 		func (direction: Vector2):
-			_map_grid[_map_index]["visited"] = true
+			_visit_current_room()
 			match direction:
 				Vector2.UP:
 					var top = _level_manager._select_top(_map_grid, _map_index)

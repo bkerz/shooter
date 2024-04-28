@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 signal shoot
+signal death
 
 @export var bullet: PackedScene
 
