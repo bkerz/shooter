@@ -10,7 +10,6 @@ const SPEED = 300.0
 const JUMP_VELOCITY = -1200.0
 const MAX_HITS = 3
 
-var _death_menu_scene = preload("res://ui/death_menu/death_menu_ui.tscn")
 var _hits_received: int = 0
 var _is_dead: bool = true
 
@@ -52,8 +51,7 @@ func _on_area_2d_body_entered(body:Node2D):
 		_hits_received += 1
 
 		if _hits_received > MAX_HITS:
-			var death_menu: Control = _death_menu_scene.instantiate()
-			get_parent().get_node("CanvasLayer/Control/CenterContainer").add_child(death_menu)
+			emit_signal("death")
 	
 	pass # Replace with function body.
 
