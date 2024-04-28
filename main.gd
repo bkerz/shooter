@@ -38,6 +38,7 @@ func _create_initial_level(map_index: int):
 func _connect_exit_level_signal(level):
 	level.exit_level.connect(
 		func (direction: Vector2):
+			_map_grid[_map_index]["visited"] = true
 			match direction:
 				Vector2.UP:
 					var top = _level_manager._select_top(_map_grid, _map_index)
