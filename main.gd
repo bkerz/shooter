@@ -1,6 +1,8 @@
 extends Node2D
 
 @onready var _shooter_manager: ShooterManager = get_node("ShooterManager")
+var _death_menu_scene = preload("res://ui/death_menu/death_menu_ui.tscn")
+var _finish_menu_scene = preload("res://ui/finish_menu/finish_menu_ui.tscn")
 var _level_scene = preload("res://level.tscn")
 var _level_manager: LevelManager = LevelManager.new()
 var _map_grid: Array[Dictionary] = []
@@ -156,3 +158,33 @@ func _find_current_level_or_null() -> Node2D:
 		if child.is_in_group("level"):
 			return child
 	return null
+
+
+func _on_level_cleared():
+	var ui_container: CenterContainer = get_node("CanvasLayer/Control/CenterContainer")
+	if ui_container.get_children().size() < 1:
+		var death_menu: Control = _finish_menu_scene.instantiate()
+		ui_container.add_child(death_menu)
+	else:
+		for child in ui_container.get_children():
+			ui_container.remove(child)
+
+		var death_menu: Control = _finish_menu_scene.instantiate()
+		ui_container.add_child(death_menu)
+	pass # Replace with function body.
+
+
+
+func _on_player_death():
+	var ui_container: CenterContainer = get_node("CanvasLayer/Control/CenterContainer")
+	if ui_container.get_children().size() < 1:
+		var death_menu: Control = _death_menu_scene.instantiate()
+		ui_container.add_child(death_menu)
+	else:
+		for child in ui_container.get_children():
+			ui_container.remove(child)
+
+		var death_menu: Control = _death_menu_scene.instantiate()
+		ui_container.add_child(death_menu)
+	pass # Replace with function body.
+
