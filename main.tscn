@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://dyyrykp8pem03"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_vbgsp"]
-[ext_resource type="PackedScene" uid="uid://cyst88l52fdva" path="res://player.tscn" id="2_tot6n"]
+[ext_resource type="PackedScene" uid="uid://cyst88l52fdva" path="res://entities/player/player.tscn" id="2_tot6n"]
 [ext_resource type="Script" path="res://levels/managers/shooter_manager.gd" id="3_re3p0"]
 [ext_resource type="Texture2D" uid="uid://5jcefqowvkhh" path="res://minimap/minimap_tileset.png" id="6_mdy37"]
 
