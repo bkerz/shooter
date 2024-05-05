@@ -1,11 +1,11 @@
 [gd_scene load_steps=6 format=3 uid="uid://gq1cd6ofor2j"]
 
-[ext_resource type="Texture2D" uid="uid://dommtcyu7gs84" path="res://icon.svg" id="1_6pvag"]
 [ext_resource type="Shader" path="res://entities/enemies/walker.gdshader" id="1_60x5y"]
 [ext_resource type="Script" path="res://entities/enemies/walker.gd" id="1_u754f"]
+[ext_resource type="Texture2D" uid="uid://ckpm3l5dnrt57" path="res://entities/enemies/enemy.png" id="3_ftlk1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_75c05"]
-size = Vector2(133, 128)
+size = Vector2(66, 72)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_u6c8m"]
 shader = ExtResource("1_60x5y")
@@ -14,12 +14,12 @@ shader = ExtResource("1_60x5y")
 script = ExtResource("1_u754f")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, 1)
 shape = SubResource("RectangleShape2D_75c05")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_u6c8m")
-texture = ExtResource("1_6pvag")
+scale = Vector2(5, 5)
+texture = ExtResource("3_ftlk1")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 2.5
