@@ -1,8 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://cyst88l52fdva"]
+[gd_scene load_steps=6 format=3 uid="uid://bnpd35ejnk36g"]
 
-[ext_resource type="Script" path="res://player.gd" id="1_ntkc8"]
-[ext_resource type="Texture2D" uid="uid://dommtcyu7gs84" path="res://icon.svg" id="2_c2ivv"]
+[ext_resource type="Script" path="res://entities/player/player.gd" id="1_ntkc8"]
 [ext_resource type="PackedScene" uid="uid://dml8bfji14h1f" path="res://bullet.tscn" id="2_j5vic"]
+[ext_resource type="Texture2D" uid="uid://qmmvruoknaoj" path="res://entities/player/playe-texturer.png" id="3_puqof"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3ainl"]
 size = Vector2(65, 158)
@@ -30,6 +30,7 @@ shape = SubResource("RectangleShape2D_my0uq")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(1, -1.5)
-texture = ExtResource("2_c2ivv")
+scale = Vector2(6, 6)
+texture = ExtResource("3_puqof")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
