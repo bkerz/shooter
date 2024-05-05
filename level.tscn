@@ -3,12 +3,10 @@
 [ext_resource type="Script" path="res://level.gd" id="1_1eic6"]
 [ext_resource type="PackedScene" uid="uid://cwot7cb8kai5t" path="res://door.tscn" id="3_uhx8u"]
 [ext_resource type="PackedScene" uid="uid://gq1cd6ofor2j" path="res://entities/enemies/walker.tscn" id="3_yy802"]
+[ext_resource type="PackedScene" uid="uid://dmxflkrclsmcy" path="res://entities/platform/platform.tscn" id="4_252lq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7vaij"]
 size = Vector2(1920, 63)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ww0a8"]
-size = Vector2(345, 20)
 
 [node name="Level" type="Node2D" groups=["level"]]
 script = ExtResource("1_1eic6")
@@ -54,46 +52,23 @@ rotation = 1.5708
 position = Vector2(960, 1004)
 rotation = 1.5708
 
-[node name="StaticBody2D5" type="StaticBody2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D5"]
-position = Vector2(985, 868)
-shape = SubResource("RectangleShape2D_ww0a8")
-
-[node name="StaticBody2D6" type="StaticBody2D" parent="."]
-position = Vector2(278, -139)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D6"]
-position = Vector2(985, 868)
-shape = SubResource("RectangleShape2D_ww0a8")
-
-[node name="StaticBody2D7" type="StaticBody2D" parent="."]
-position = Vector2(-229, -191)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D7"]
-position = Vector2(985, 868)
-shape = SubResource("RectangleShape2D_ww0a8")
-
-[node name="StaticBody2D8" type="StaticBody2D" parent="."]
-position = Vector2(262, -368)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D8"]
-position = Vector2(985, 868)
-shape = SubResource("RectangleShape2D_ww0a8")
-
-[node name="StaticBody2D9" type="StaticBody2D" parent="."]
-position = Vector2(-240, -458)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D9"]
-position = Vector2(985, 868)
-shape = SubResource("RectangleShape2D_ww0a8")
-
-[node name="StaticBody2D10" type="StaticBody2D" parent="."]
-position = Vector2(251, -635)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D10"]
-position = Vector2(985, 868)
-shape = SubResource("RectangleShape2D_ww0a8")
-
 [node name="CharacterBody2D" parent="." groups=["enemy"] instance=ExtResource("3_yy802")]
 position = Vector2(1523, 924)
+
+[node name="Platform2" parent="." instance=ExtResource("4_252lq")]
+position = Vector2(1275, 850)
+
+[node name="Platform4" parent="." instance=ExtResource("4_252lq")]
+position = Vector2(931, 696)
+
+[node name="Platform6" parent="." instance=ExtResource("4_252lq")]
+position = Vector2(695, 570)
+
+[node name="Platform7" parent="." instance=ExtResource("4_252lq")]
+position = Vector2(1012, 465)
+
+[node name="Platform9" parent="." instance=ExtResource("4_252lq")]
+position = Vector2(1221, 320)
+
+[node name="Platform8" parent="." instance=ExtResource("4_252lq")]
+position = Vector2(831, 247)
