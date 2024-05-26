@@ -3,7 +3,7 @@ class_name LevelManager extends Node2D
 var _random = RandomNumberGenerator.new()
 
 func _create_new_level() -> Node:
-	var level = preload("res://level.tscn").instantiate()
+	var level = preload("res://levels/level.tscn").instantiate()
 	return level
 
 func switch_level(parent: Node2D, current_level: Node2D, callback: Callable) -> void:

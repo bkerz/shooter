@@ -5,7 +5,7 @@ signal level_cleared
 @onready var _shooter_manager: ShooterManager = get_node("ShooterManager")
 var _death_menu_scene = preload("res://ui/death_menu/death_menu_ui.tscn")
 var _finish_menu_scene = preload("res://ui/finish_menu/finish_menu_ui.tscn")
-var _level_scene = preload("res://level.tscn")
+var _level_scene = preload("res://levels/level.tscn")
 var _level_manager: LevelManager = LevelManager.new()
 var _map_grid: Array[Dictionary] = []
 var _map_index: int = -1

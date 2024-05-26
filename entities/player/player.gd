@@ -12,6 +12,12 @@ const MAX_HITS = 3
 
 var _hits_received: int = 0
 var _is_dead: bool = true
+var _direction: Vector2 = Vector2.ZERO
+
+var _animation_tree: AnimationTree = null
+
+func _ready():
+	_animation_tree = get_node("AnimationTree")
 
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -23,8 +29,10 @@ func _process(delta: float):
 	if Input.is_action_just_pressed("shoot"):
 		shoot.emit(Vector2(horizontal, vertical))
 	pass
+	update_animations()
 
 func _physics_process(delta):
+	_direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down").normalized()
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y += gravity * 3.7 * delta
@@ -43,6 +51,12 @@ func _physics_process(delta):
 
 	move_and_slide()
 	pass
+
+func update_animations():
+	_animation_tree["parameters/conditions/idle"] = true
+	
+	_animation_tree["parameters/idle/blend_position"] = _direction
+	
 
 
 
