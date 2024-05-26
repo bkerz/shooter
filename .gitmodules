@@ -1,0 +1,3 @@
+[submodule "assets/art"]
+	path = assets/art
+	url = git@github.com:bkerz/shooter-art.git
